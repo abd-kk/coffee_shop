@@ -57,10 +57,14 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void loadCartItems() async {
+void loadCartItems() async {
     String url = "https://mobileprojecttt.000webhostapp.com/get_cart_items.php";
-
-    var response = await get(Uri.parse(url)).timeout(Duration(seconds: 30));
+    String user_id = await pref.getString("id");
+    var response = await post(
+        Uri.parse(url),
+        body: {
+          'user_id': user_id,
+        });
 
     if (response.statusCode == 200) {
       setState(() {
